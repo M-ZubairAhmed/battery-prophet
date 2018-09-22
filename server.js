@@ -1,10 +1,17 @@
 const linuxBattery = require("linux-battery");
 const express = require("express");
+const path = require("path");
 
 const app = express();
 const PORT = 9091;
 
-app.get("/", async (request, response) => {
+app.use(express.static("public"));
+
+app.get("/", function(request, response) {
+  response.sendFile(path.join(__dirname + "/public/index.html"));
+});
+
+app.get("/get-info", async (request, response) => {
   console.log(request);
   const batteryInfoRaw = await linuxBattery();
   const completeBatteryInfo = batteryInfoRaw[0];
@@ -27,5 +34,5 @@ app.get("/", async (request, response) => {
 });
 
 app.listen(PORT, () =>
-  console.log("Battery propher server started at port", PORT)
+  console.log("Battery prophet server started at port", PORT)
 );
