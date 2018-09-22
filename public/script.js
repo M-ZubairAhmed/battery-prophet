@@ -1,7 +1,61 @@
 function main() {
-  console.log("hello");
+  console.log("ran");
+  var errorElement = document.getElementById("error");
+  var levelElement = document.getElementById("level");
+  var statusElement = document.getElementById("status");
+
+  fetch("/get-info")
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(batteryInfo) {
+      console.log(batteryInfo);
+      var isCharging =
+        batteryInfo && batteryInfo.isCharging !== null
+          ? batteryInfo.isCharging
+          : null;
+      var level = batteryInfo && batteryInfo.level ? batteryInfo.level : null;
+      if (isCharging == null || level == null) {
+        errorElement.textContent = "Error obtaining battery values";
+        levelElement.textContent = "";
+        statusElement.textContent = "";
+        // clearInterval(mainIntervalID)
+        console.log(isCharging, level);
+      } else {
+        console.log(isCharging, level);
+        levelElement.textContent = level;
+        statusElement.textContent = isCharging ? "Charging" : "Discharging";
+        if (!isCharging) {
+          statusElement.style.color = "palevioletred";
+        } else {
+          statusElement.style.color = "limegreen";
+        }
+        if (level >= 75 && isCharging) {
+          notifyMe(
+            "Disconnect your charger, battery about to reach 80 percent"
+          );
+        } else if (level <= 25 && !isCharging) {
+          notifyMe("Connect your charger, battery about to reach 40 percent");
+        }
+      }
+    });
 }
 
-// var intervalID = window.setInterval(main, 500);
+function notifyMe(text) {
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  } else if (Notification.permission === "granted") {
+    var notification = new Notification(text);
+  } else if (Notification.permission !== "denied") {
+    Notification.requestPermission(function(permission) {
+      if (permission === "granted") {
+        var notification = new Notification(text);
+      }
+    });
+  }
+}
 
-main();
+window.onload = function() {
+  main();
+  var mainIntervalID = window.setInterval(main, 300000);
+};

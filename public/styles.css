@@ -1,0 +1,9 @@
+div > span {
+  color: lightslategray;
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+div {
+  color: darkslategray;
+}

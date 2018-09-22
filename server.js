@@ -12,15 +12,9 @@ app.get("/", function(request, response) {
 });
 
 app.get("/get-info", async (request, response) => {
-  console.log(request);
   const batteryInfoRaw = await linuxBattery();
   const completeBatteryInfo = batteryInfoRaw[0];
   const batteryInfo = {
-    isPowerConnected: completeBatteryInfo["powerSupply"]
-      ? completeBatteryInfo["powerSupply"] === "yes"
-        ? true
-        : false
-      : null,
     isCharging: completeBatteryInfo["state"]
       ? completeBatteryInfo["state"] === "charging"
         ? true
