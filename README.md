@@ -3,6 +3,7 @@ Package that encourages best battery practices for your laptop
 
 ### Getting started
 #### Prerequisites
+- Linus OS
 - Git
 - Yarn/NPM
 #### Installations
