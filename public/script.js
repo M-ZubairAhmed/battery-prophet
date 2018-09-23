@@ -1,5 +1,6 @@
+var mainIntervalID;
+
 function main() {
-  console.log("ran");
   var errorElement = document.getElementById("error");
   var levelElement = document.getElementById("level");
   var statusElement = document.getElementById("status");
@@ -19,8 +20,8 @@ function main() {
         errorElement.textContent = "Error obtaining battery values";
         levelElement.textContent = "";
         statusElement.textContent = "";
-        // clearInterval(mainIntervalID)
-        console.log(isCharging, level);
+        notifyMe("Battery propher: Error obtaining battery information");
+        clearInterval(mainIntervalID);
       } else {
         console.log(isCharging, level);
         levelElement.textContent = level;
@@ -34,7 +35,7 @@ function main() {
           notifyMe(
             "Disconnect your charger, battery about to reach 80 percent"
           );
-        } else if (level <= 25 && !isCharging) {
+        } else if (level <= 45 && !isCharging) {
           notifyMe("Connect your charger, battery about to reach 40 percent");
         }
       }
@@ -56,6 +57,5 @@ function notifyMe(text) {
 }
 
 window.onload = function() {
-  main();
-  var mainIntervalID = window.setInterval(main, 300000);
+  mainIntervalID = window.setInterval(main, 60000);
 };
