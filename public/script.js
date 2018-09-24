@@ -31,14 +31,14 @@ function main() {
         } else {
           statusElement.style.color = "limegreen";
         }
-        if (level >= 75 && isCharging) {
+        if (level >= 79 && isCharging) {
           console.log(
             "Disconnect your charger, battery about to reach 80 percent"
           );
           notifyMe(
             "Disconnect your charger, battery about to reach 80 percent"
           );
-        } else if (level <= 45 && !isCharging) {
+        } else if (level <= 42 && !isCharging) {
           console.log(
             "Connect your charger, battery about to reach 40 percent"
           );
