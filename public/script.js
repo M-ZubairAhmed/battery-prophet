@@ -63,5 +63,7 @@ function notifyMe(text) {
 }
 
 window.onload = function() {
+  main();
+  notifyMe("Battery doctor is monitoring your laptops battery");
   mainIntervalID = window.setInterval(main, 60000);
 };
