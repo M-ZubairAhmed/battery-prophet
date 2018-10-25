@@ -33,14 +33,14 @@ function main() {
         }
         if (level >= 79 && isCharging) {
           console.log(
-            "Disconnect your charger, battery about to reach 80 percent"
+            `Disconnect your charger, battery about to reach 80 percent, currently at ${level}`
           );
           notifyMe(
             "Disconnect your charger, battery about to reach 80 percent"
           );
         } else if (level <= 42 && !isCharging) {
           console.log(
-            "Connect your charger, battery about to reach 40 percent"
+            `Connect your charger, battery about to reach 40 percent, currently at ${level}`
           );
           notifyMe("Connect your charger, battery about to reach 40 percent");
         }
@@ -64,6 +64,6 @@ function notifyMe(text) {
 
 window.onload = function() {
   main();
-  notifyMe("Battery doctor is monitoring your laptops battery");
+  notifyMe("Battery prophet is monitoring your laptop's battery health");
   mainIntervalID = window.setInterval(main, 60000);
 };
